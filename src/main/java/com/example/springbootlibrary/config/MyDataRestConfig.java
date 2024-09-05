@@ -8,7 +8,6 @@ import org.springframework.http.HttpMethod;
 
 @Configuration
 public class MyDataRestConfig implements RepositoryRestConfigurer {
-
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
         HttpMethod[] unsupportedMethods = {HttpMethod.POST, HttpMethod.PUT, HttpMethod.DELETE, HttpMethod.PATCH};
 
