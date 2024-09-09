@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS image_data
+(
+    id BIGSERIAL NOT NULL,
+    name VARCHAR NOT NULL,
+    type VARCHAR NOT NULL,
+    imagedata BIGINT NOT NULL
+);
+

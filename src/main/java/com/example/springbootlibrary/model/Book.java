@@ -22,6 +22,11 @@ public class Book {
     private Integer copies;
     private Integer copiesAvailable;
     private String category;
-    private String img;
+    @Column(name = "img_data_id")
+    private Integer imgDataId;
+
+    @OneToOne
+    @JoinColumn(name = "imagedata_id")
+    private ImageData imageData;
 
 }

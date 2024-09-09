@@ -7,7 +7,8 @@ CREATE TABLE IF NOT EXISTS book
     copies           int         DEFAULT NULL,
     copies_available int         DEFAULT NULL,
     category         varchar     DEFAULT NULL,
-    img              bytea       DEFAULT NULL,
+    img_data_id      int         DEFAULT NULL,
+    imagedata_id     BIGINT      DEFAULT NULL,
     PRIMARY KEY (id)
 );
 
