@@ -1,8 +1,6 @@
 package com.example.springbootlibrary.service;
 
-import com.example.springbootlibrary.dao.BookRepository;
 import com.example.springbootlibrary.dao.StorageRepository;
-import com.example.springbootlibrary.model.Book;
 import com.example.springbootlibrary.model.ImageData;
 import com.example.springbootlibrary.util.ImageUtils;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.Optional;
 
 @Service

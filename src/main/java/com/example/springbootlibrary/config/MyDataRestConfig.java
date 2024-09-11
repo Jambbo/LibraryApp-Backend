@@ -1,6 +1,7 @@
 package com.example.springbootlibrary.config;
 
 import com.example.springbootlibrary.model.Book;
+import com.example.springbootlibrary.model.Review;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
@@ -20,18 +21,20 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
         HttpMethod[] unsupportedMethods = {HttpMethod.POST, HttpMethod.PUT, HttpMethod.DELETE, HttpMethod.PATCH};
 
         config.exposeIdsFor(Book.class);
+        config.exposeIdsFor(Review.class);
 
         disableHttpMethods(Book.class, config, unsupportedMethods);
+        disableHttpMethods(Review.class, config, unsupportedMethods);
         cors.addMapping(config.getBasePath() + "/**")
                 .allowedOrigins(allowedOrigins);
     }
 
-    private void disableHttpMethods(Class<Book> bookClass,
+    private void disableHttpMethods(Class<?> clazz,
                                     RepositoryRestConfiguration config,
                                     HttpMethod[] unsupportedMethods
     ) {
         config.getExposureConfiguration()
-                .forDomainType(bookClass)
+                .forDomainType(clazz)
                 .withItemExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedMethods))
                 .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedMethods));
     }
