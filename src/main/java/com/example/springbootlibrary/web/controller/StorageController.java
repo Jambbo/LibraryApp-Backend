@@ -1,4 +1,4 @@
-package com.example.springbootlibrary.web;
+package com.example.springbootlibrary.web.controller;
 
 import com.example.springbootlibrary.service.StorageService;
 import lombok.RequiredArgsConstructor;
@@ -7,8 +7,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/v1/storage")
