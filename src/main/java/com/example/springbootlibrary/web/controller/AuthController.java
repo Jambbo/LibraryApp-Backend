@@ -25,7 +25,7 @@ public class AuthController {
 
     private final UserMapper userMapper;
 
-    @PostMapping("/logic")
+    @PostMapping("/login")
     public JwtResponse login(@Validated @RequestBody JwtRequest jwtRequest){
         return authService.login(jwtRequest);
     }
