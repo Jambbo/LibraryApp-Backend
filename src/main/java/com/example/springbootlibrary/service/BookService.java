@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -21,24 +22,35 @@ public class BookService {
 
     @SneakyThrows
     public Book checkoutBook(String userEmail, Long bookId){
-        Book book = bookRepository.findById(bookId).orElseThrow(RuntimeException::new);
+        Optional<Book> book = bookRepository.findById(bookId);
         Checkout validateCheckout = checkoutRepository.findByUserEmailAndBookId(userEmail, bookId);
 
-        if(validateCheckout != null || book.getCopiesAvailable()<=0){
+        if(book.isEmpty() || validateCheckout != null || book.get().getCopiesAvailable()<=0){
             throw new Exception("Book doesn't exist or already checked out by user.");
         }
 
-        book.setCopiesAvailable(book.getCopiesAvailable()-1);
-        bookRepository.save(book);
-        
-        Checkout checkout = Checkout.builder()
+        book.get().setCopiesAvailable(book.get().getCopiesAvailable()-1);
+        bookRepository.save(book.get());
+
+        checkoutRepository.save(
+                Checkout.builder()
                 .userEmail(userEmail)
                 .checkoutDate(LocalDate.now().toString())
                 .returnDate(LocalDate.now().plusDays(7).toString())
-                .bookId(book.getId())
-                .build();
-        checkoutRepository.save(checkout);
-        return book;
+                .bookId(book.get().getId())
+                .build()
+        );
+
+        return book.get();
+    }
+
+    public Boolean checkoutBookByUser(String userEmail, Long bookId){
+        Checkout validateCheckout = checkoutRepository.findByUserEmailAndBookId(userEmail, bookId);
+        return validateCheckout != null;
+    }
+
+    public int currentLoansCount(String userEmail) {
+        return checkoutRepository.findBooksByUserEmail(userEmail).size();
     }
 
 }
